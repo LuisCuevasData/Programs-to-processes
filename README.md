@@ -10,7 +10,23 @@ Finally, we will write a small program that performs a system call directly to s
 
 After doing these steps, low-level execution will be less of a mystery! We will understand exactly what happens when we run a C program on an Intel x86 CPU.
 
-## Part 0: Setup Github Codespaces
+## Part 0: Setup 
+
+In the first half of the course, you will be working with low-level hardware and the operating system. In order to ensure that everyone has the same experience-- we must all have access to the same Operating System (Linux) and the same CPU hardware (Intel x86).
+
+
+#### Google Colab
+
+The following github colab notebook provides a few cells that setup google colab correctly.
+[https://colab.research.google.com/drive/1b6DADdkfC2UlhqI71DEpV0K1WEga1o6-?usp=sharing](https://colab.research.google.com/drive/1b6DADdkfC2UlhqI71DEpV0K1WEga1o6-?usp=sharing)
+
+1. (FIRST TIME ONLY) Run the first two cells in the google colab notebook. 
+    - Note that this notebook automatically runs the process described in the "Adding an SSH Key" section. Then, it moves the ssh key to your google drive so that it can be loaded any time you start a new colab session. You will need to copy the ssh public key to github.com as described in the later section.
+2. (Second Time and After) Any time your runtime restarts you will need to run the two notebook cells under the "Every Time Your Runtime Resets" title card.
+3. Click on the bottom panel's "Terminal" button. You now have access to a linux shell from which you can clone github repositories and do assignments.
+4. BE AWARE. When the google colab runtime resets you will **loose all work** in the root + `content/` directory. **Be sure to push to github often!**
+
+#### Github Codespaces
 
 We recommend that you complete this assignment on Github Codespaces.
 
@@ -18,6 +34,9 @@ To get started:
 - Go to GitHub Codespaces: [https://github.com/codespaces]
 - Hit "New Codespace" Green Button
 - Either use a "blank" project or start from this assignment repository.
+
+
+#### Personal Computer
 
 BEWARE: You can not complete this assignment on a CPU that is not Linux/Intel x86. 
 
@@ -28,6 +47,107 @@ Linux annaad-ThinkPad-X1-Carbon-Gen-12 6.17.0-35-generic #35~24.04.1-Ubuntu SMP 
 ```
 
 If you see `x86_64` and `GNU/Linux` you can do this exercise! Otherwise: use Github Codespaces!!
+
+
+### Adding an SSH Key to GitHub
+
+Run the following commands in a terminal in your online environment.
+
+1. `ssh-keygen`: This will start the creation of an 'RSA' key pair.
+2. If prompted for a file to save the key in, just press enter/return to use the default file path.
+3. If prompted for a passphrase, just press enter/return to use the default of no passphrase.
+4. If prompted to enter the same passphrase again, just press enter/return again.
+5. `cat ~/.ssh/id_rsa.pub`: This will output the public key you've created. 
+    - Fun fact: `~` is a shortcut / wildcard character that is equivalent to your home directory. For the online environment, `~/.ssh` is the same as `/home/jovyan/.ssh`. It's useful to know for getting around the terminal quickly. Despite the naming , `~` is **NOT** equivalent to `/home/`.
+6. Copy the entire output of the previous command.
+
+Example Input/Output:
+```
+$ ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/jovyan/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/jovyan/.ssh/id_rsa
+Your public key has been saved in /home/jovyan/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:ABunchOfRandomLettersAndNumbers
+The key's randomart image is:
++---[RSA 3072]---+
+|                |
+|   Random       |
+|                |
+|     Characters |
+|                |
+|                |
+|   Here         |
+|                |
+|                |
++----[SHA256]----+
+$ cat ~/.ssh/id_rsa.pub
+ssh-rsa YourPublicKeyHere
+```
+
+Now, let's register the public key with your GitHub account.
+
+7. Go to https://github.com and log into your account.
+8. Click your profile avatar (typically on the top right) and go to Settings.
+9. On the left hand side (or on the top if you're on mobile or have a small browser window), select 'SSH and GPG Keys'
+10. On the top right, select 'New SSH Key'.
+
+<img width="650" height="400" src="./imgs/githubssh1.png" alt="Github ssh1"/>
+
+11. Give your key a fun title! It won't impact how the key works.
+12. Confirm the key type is an Authentication Key
+13. Paste the previously copied public key into the provided text box.
+14. Click 'Add SSH Key' and complete 2-factor authentication if necessary
+
+<img width="400" height="400" src="./imgs/githubssh2.png" alt="github ssh2"/>
+
+With that, you should be good to go to clone repositories via SSH. But we need to make one more adjustment to commit to those repositories in the terminal.
+
+### Running Terminal Commands
+
+Run the following commands in your terminal. An explanation of what each line is provided for understanding.
+
+1. `pwd`
+    - Outputs your current working directory to a file stream known as 'standard output'. In this case, standard output just goes to your terminal screen.
+2. `cd drive/MyDrive` (IF YOU ARE ON GOOGLE COLAB, otherwise you can skip this step.)
+	- `cd` stands for 'change directory'. We're asking the shell program to go to directory `drive/MyDrive`. If there is no prefix, such as  `/` (root directory), `./` (current directory), or `../` (parent directory), we assume the directory is a subdirectory of your current working directory.
+	- **In google colab, only files in the `/content/drive/MyDrive` folder will be saved and persisted across sessions**
+2. `git clone git@github.com:<repository-name>.git` where you replace 
+`<repository-name>` with the name of the repo you wish to clone to your computer. On the github website, there is a green "Code <>" button, and under the "ssh" tab you can find the exact command to copy with your repo name. Then, if you see a message **Are you sure you want to continue connecting?**, type yes in your current terminal.
+    - Clones your repository on Github into your local device so you can work with it locally. You can think of 'cloning' as 'creating a local copy'.
+3. `cd Assignment-1`  
+	- `cd` stands for 'change directory'. We're asking the shell program to go to directory `Assignment-1`. If there is no prefix, such as  `/` (root directory), `./` (current directory), or `../` (parent directory), we assume the directory is a subdirectory of your current working directory.
+4. `pwd`
+    - See line #1. You should notice that the output you see has changed to reflect the new working directory as a result of the previous `cd` command.
+5. `ls -l`
+    - `ls` lists the contents of the current working directory. The -l flag provides additional information about the directory's contents.
+	- You should see files like `mini.c`, `calc.c`, etc.
+
+**NOTE: You will not have the ability to push code changes to the source repository. If you wish to save your work on a git repository you will need to delete the `.git` folder and initialize a new git repo.**
+
+#### Optional: Setting up Personal Private Repository for an Assignment
+
+If you are experienced with git and version control, it's a good idea to back up your work in a **private** git repository.
+
+To do so:
+- Go to github.com and click "New Repository".
+- Make sure the repo is **private**
+- In the terminal that you have cloned `Assignment-1` to, run the following commands:
+
+```shell
+$ rm -rf .git
+$ git init
+$ git add .
+$ git commit -m "initial commit"
+$ git remote add origin <PASTE_YOUR_REPOSITORY_URL>
+$ git branch -M main
+$ git push -u origin main
+```
+
+
 
 ## Part 1: Our first C program
 
