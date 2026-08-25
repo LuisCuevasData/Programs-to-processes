@@ -15,7 +15,7 @@ After doing these steps, low-level execution will be less of a mystery! We will 
 In the first half of the course, you will be working with low-level hardware and the operating system. In order to ensure that everyone has the same experience-- we must all have access to the same Operating System (Linux) and the same CPU hardware (Intel x86).
 
 
-#### Google Colab
+#### Option 1: Google Colab
 
 The following github colab notebook provides a few cells that setup google colab correctly.
 [https://colab.research.google.com/drive/1b6DADdkfC2UlhqI71DEpV0K1WEga1o6-?usp=sharing](https://colab.research.google.com/drive/1b6DADdkfC2UlhqI71DEpV0K1WEga1o6-?usp=sharing)
@@ -24,9 +24,11 @@ The following github colab notebook provides a few cells that setup google colab
     - Note that this notebook automatically runs the process described in the "Adding an SSH Key" section. Then, it moves the ssh key to your google drive so that it can be loaded any time you start a new colab session. You will need to copy the ssh public key to github.com as described in the later section.
 2. (Second Time and After) Any time your runtime restarts you will need to run the two notebook cells under the "Every Time Your Runtime Resets" title card.
 3. Click on the bottom panel's "Terminal" button. You now have access to a linux shell from which you can clone github repositories and do assignments.
-4. BE AWARE. When the google colab runtime resets you will **loose all work** in the root + `content/` directory. **Be sure to push to github often!**
+4. **BE AWARE.** When the google colab runtime resets you will **loose all work** in the root + `content/` directory. 
+	- You have two options: Save your work **ONLY** in `/content/drive/MyDrive` or back it up on a personal private Github repo. 
 
-#### Github Codespaces
+
+#### Option 2: Github Codespaces
 
 We recommend that you complete this assignment on Github Codespaces.
 
@@ -36,7 +38,7 @@ To get started:
 - Either use a "blank" project or start from this assignment repository.
 
 
-#### Personal Computer
+#### Option 3: Personal Computer
 
 BEWARE: You can not complete this assignment on a CPU that is not Linux/Intel x86. 
 
