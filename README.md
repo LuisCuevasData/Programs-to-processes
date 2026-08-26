@@ -325,11 +325,14 @@ $ gcc -fno-inline -fno-stack-protector -fno-pic  -static -Werror -fcf-protection
 ```
 
 Now, run `strace ./caller` in your terminal.
+Note: You may need to install strace first: `sudo apt install strace`
+
 
 Here, you will see a list of syscalls made by the ./caller process.
 
 > [!IMPORTANT]
 > **TASK: Answer these questions in questions.txt**
+> First, run and inspect the output of `strace ./caller`.
 > - Which lines of the output syscalls correspond to the two you added? (Label your answer with `(1)`. This label must come at the start of the line.)
 > - What is one other syscall (not write) that you see in the output. Look it up and describe what this syscall does. (Label your answer with `(2)`. This label must come at the start of the line.)
 
