@@ -1,0 +1,8 @@
+(1) The two write syscalls I added appear as these lines:
+write(1, "hello STDOUT\n", 13) = 13
+write(2, "ERROR: this is an error", 23) = 23
+The first one says my "hello STDOUT\n" message to file descriptor 1 (stdout), and the second one says "ERROR: this is an error" to file descriptor 2 (stderr).
+
+(2) Another syscall in the output is openat, for example:
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+The syscall opens a file, then returns a file descriptor for it. Here is used by the dynamic linker to open the C standard library (libc.so.6) so it can be loaded into the process's memory before main() runs. AT_FDCWD means the path would be resolved relative to the current working directory if it wasn't already absolute, O_RDONLY opens it read-only, and O_CLOEXEC closes the descriptor if the process later calls exec.
