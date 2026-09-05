@@ -1,0 +1,20 @@
+# Object files
+*.o
+*.obj
+
+# Executables (no file extension on Linux, so list by name)
+test-mini
+test-mini2
+calc
+caller
+
+# Compiled assembly output (keep source .s/.S, ignore generated ones if regenerated)
+# Uncomment if mini.s / mini_mod.o etc. get regenerated rather than hand-edited:
+# *.s
+
+# Editor/OS cruft
+*.swp
+.DS_Store
+
+# Makefile build directories, if you add one later
+build/
